@@ -1,0 +1,431 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Colour roles.
+ *
+ * Every value has exactly one job. The rule that matters:
+ * --metric is reserved for numbers a reader can verify. It never
+ * appears on focus rings, bullets, labels, borders or backgrounds.
+ * Spending it only on measurable results is what makes it read as
+ * evidence rather than decoration.
+ * ------------------------------------------------------------------ */
+:root {
+  --canvas: #0d0d0c; /* page ground */
+  --band: #171716; /* alternating section ground */
+  --surface: #1e1e1c; /* panels and cards */
+  --surface-2: #262624; /* nested chips */
+
+  --text: #f3efe7; /* primary */
+  --text-2: #a7a39b; /* secondary prose */
+  --text-3: #8d8981; /* labels and captions */
+
+  --metric: #c8b99a; /* verifiable numbers, nothing else */
+
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --grid: rgba(255, 255, 255, 0.035);
+  --dot: rgba(255, 255, 255, 0.075);
+  --node: rgba(243, 239, 231, 0.5);
+
+  /* Sticky-note paper. Warm ochre, kept adjacent to the accent so it reads
+   * as a material rather than as a second accent colour. */
+  /* Capability deck. Five warm tints, desaturated so the cards read as a
+   * set without becoming a second accent system. */
+  --tint-1: #33281a;
+  --tint-2: #33231c;
+  --tint-3: #1f2b22;
+  --tint-4: #2b2a24;
+  --tint-5: #302a26;
+  --tint-6: #2b2a31;
+
+  --paper: #ecdfb8;
+  --paper-2: #ddcda0;
+  --paper-fold: #c4b287;
+  --paper-ink: #2b2718;
+  --paper-rule: rgba(43, 39, 24, 0.16);
+
+  /* The closing section inverts canvas and text. Neutral, so it costs
+   * nothing from the accent budget. */
+  --invert-bg: #f3efe7;
+  --invert-surface: #e7e1d2;
+  --invert-text: #14130f;
+  --invert-text-2: #4a4335;
+  --invert-border: rgba(20, 19, 15, 0.22);
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --canvas: #f7f4ec;
+  --band: #efeadf;
+  --surface: #e7e1d4;
+  --surface-2: #ded7c7;
+
+  --text: #1a1917;
+  --text-2: #57524a;
+  --text-3: #635e57;
+
+  --metric: #7a6140;
+
+  --border: rgba(26, 25, 23, 0.12);
+  --border-strong: rgba(26, 25, 23, 0.24);
+  --grid: rgba(26, 25, 23, 0.045);
+  --dot: rgba(26, 25, 23, 0.13);
+  --node: rgba(26, 25, 23, 0.45);
+
+  --tint-1: #efe2c4;
+  --tint-2: #f0ddd2;
+  --tint-3: #dfe8dd;
+  --tint-4: #e9e5d8;
+  --tint-5: #e5ddd4;
+  --tint-6: #dcdce4;
+
+  --paper: #f6ebc2;
+  --paper-2: #e9daa6;
+  --paper-fold: #d3c089;
+  --paper-ink: #2b2718;
+  --paper-rule: rgba(43, 39, 24, 0.18);
+
+  /* Warm espresso rather than neutral charcoal. A grey block under a warm
+   * ivory page reads as dead space; giving it the same warmth as the rest of
+   * the palette makes it read as deep instead. */
+  --invert-bg: #1c1713;
+  --invert-surface: #2a231c;
+  --invert-text: #faf7f0;
+  --invert-text-2: #cfc3ad;
+  --invert-border: rgba(250, 247, 240, 0.22);
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-band: var(--band);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-metric: var(--metric);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-invert-bg: var(--invert-bg);
+  --color-invert-surface: var(--invert-surface);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-invert-text: var(--invert-text);
+  --color-invert-text-2: var(--invert-text-2);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-hand: var(--font-hand), ui-rounded, cursive;
+
+  /* One vertical rhythm, used by every section. */
+  --spacing-gap-xs: 1.5rem;
+  --spacing-gap-sm: 2.5rem;
+  --spacing-gap-md: 4rem;
+  --spacing-gap-lg: 6rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--text);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--text);
+    color: var(--canvas);
+  }
+
+  /* Focus is wayfinding, not emphasis, so it uses primary text rather
+   * than the accent. */
+  :focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * Scrollbars.
+   *
+   * The platform default is a white track with arrow buttons, which looks
+   * like a 1998 dialog sitting inside a warm ivory panel. These follow the
+   * theme instead, and apply everywhere so the page and the case study
+   * dialog agree with each other.
+   * ---------------------------------------------------------------- */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /* The transparent border plus content-box clipping is what insets the
+     * thumb, leaving a slim pill rather than a full-width slab. */
+    background-color: var(--border-strong);
+    background-clip: content-box;
+    border: 4px solid transparent;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-3);
+  }
+
+  /* The stepper arrows at each end. */
+  ::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Inverted surfaces flip the ground, so the focus ring has to flip with
+   * them or it lands invisible. */
+  .inverted :focus-visible,
+  .inverted:focus-visible {
+    outline-color: var(--invert-text);
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display), ui-serif, Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  /* Content labels. Sentence case, no tracking, no uppercase: the job is
+   * to name a block, not to decorate it. */
+  .label {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: var(--text-3);
+  }
+
+  /* Monospace is reserved for genuinely tabular data: dates, versions,
+   * technology names, metric units. Not for prose or headings. */
+  .data {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: var(--text-2);
+  }
+
+  .font-hand {
+    font-family: var(--font-hand), ui-rounded, cursive;
+    font-weight: 500;
+  }
+
+  .balance {
+    text-wrap: balance;
+  }
+  .pretty {
+    text-wrap: pretty;
+  }
+
+  .hairline {
+    height: 1px;
+    background: var(--border);
+  }
+
+  .link-underline {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    color: var(--text);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* ---------------------------------------------------------------- *
+   * Tool marquee. The track holds two identical copies of the list, so
+   * translating it exactly -50% lands the second copy where the first
+   * began and the loop has no seam.
+   * ---------------------------------------------------------------- */
+  @keyframes tool-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: tool-marquee 55s linear infinite;
+    will-change: transform;
+  }
+
+  /* Pausing on hover is what makes the names readable: without it the mark
+   * slides out from under the cursor before its label lands. */
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Fades the row out at both edges instead of cutting it off. */
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+  }
+
+  /* Dot field behind the hero pinboard. */
+  .dot-field {
+    background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * Sticky note.
+   *
+   * The corner is genuinely cut out of the paper with clip-path, and a
+   * separate triangle fills that notch in the paper's underside colour, so
+   * it reads as folded rather than as a drawn-on shape. clip-path discards
+   * box-shadow, so the lift comes from drop-shadow filters on the wrapper,
+   * which follow the clipped silhouette.
+   * ---------------------------------------------------------------- */
+  .sticky-wrap {
+    position: relative;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.22))
+      drop-shadow(0 14px 22px rgba(0, 0, 0, 0.38));
+    transition: filter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sticky-wrap:hover {
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.24))
+      drop-shadow(0 26px 36px rgba(0, 0, 0, 0.44));
+  }
+
+  .sticky-paper {
+    position: relative;
+    color: var(--paper-ink);
+    /* Ruled lines over a paper gradient, so light falls across the sheet. */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 1.55rem,
+        var(--paper-rule) 1.55rem,
+        var(--paper-rule) calc(1.55rem + 1px)
+      ),
+      linear-gradient(152deg, var(--paper) 0%, var(--paper-2) 100%);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 1.75rem),
+      calc(100% - 1.75rem) 100%,
+      0 100%
+    );
+  }
+
+  .sticky-fold {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    background-image: linear-gradient(
+      135deg,
+      var(--paper-fold) 0%,
+      var(--paper-2) 100%
+    );
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+
+  .grid-field {
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .mask-fade {
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 70% at 50% 40%,
+      #000 35%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 70% at 50% 40%,
+      #000 35%,
+      transparent 100%
+    );
+  }
+
+  .grain {
+    opacity: 0.038;
+    mix-blend-mode: overlay;
+  }
+  [data-theme="light"] .grain {
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
