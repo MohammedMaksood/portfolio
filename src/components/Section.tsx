@@ -24,7 +24,7 @@ export function Section({ id, title, lede, children, tone = "canvas" }: Props) {
         tone === "band" ? "bg-band" : "bg-canvas"
       }`}
     >
-      <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8 md:py-32 lg:py-40">
+      <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8 md:py-24 lg:py-28">
         {title ? (
           <header className="max-w-3xl">
             <h2 id={`${id}-heading`}>
@@ -44,7 +44,7 @@ export function Section({ id, title, lede, children, tone = "canvas" }: Props) {
           </header>
         ) : null}
 
-        <div className={title ? "mt-16 md:mt-24" : ""}>{children}</div>
+        <div className={title ? "mt-12 md:mt-16" : ""}>{children}</div>
       </div>
     </section>
   );

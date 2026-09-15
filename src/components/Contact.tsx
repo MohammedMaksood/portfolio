@@ -46,7 +46,7 @@ export function Contact() {
       aria-labelledby="contact-heading"
       className="inverted bg-invert-bg text-invert-text"
     >
-      <div className="mx-auto w-full max-w-6xl px-6 py-28 sm:px-8 md:py-40">
+      <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8 md:py-28">
         <h2 id="contact-heading" className="max-w-4xl">
           <MaskReveal className="font-display balance text-[clamp(2.5rem,7.5vw,6rem)] leading-[0.98]">
             Have an interesting problem?

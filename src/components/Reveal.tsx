@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { useStillness } from "@/lib/useStillness";
 import type { ReactNode } from "react";
 
@@ -42,11 +43,14 @@ export function Reveal({ children, delay = 0, className, as = "div" }: Props) {
 
 /**
  * Type rising from behind a mask, as though the line were already set and the
- * page is lifting the cover off it. Used on the big display headings, where a
- * plain fade would be the generic choice.
+ * page is lifting the cover off it.
  *
- * The wrapper clips, the inner element travels, so nothing is ever drawn
- * outside the line's own box.
+ * The observer watches the WRAPPER, never the travelling span. The span is
+ * translated fully outside an `overflow: hidden` parent, and
+ * IntersectionObserver applies ancestor clipping when it computes
+ * intersection, so a clipped element reports zero intersection forever.
+ * Observing it with `whileInView` deadlocks: it can never be told to appear
+ * because it has already hidden itself from the thing that would tell it.
  */
 export function MaskReveal({
   children,
@@ -58,16 +62,17 @@ export function MaskReveal({
   className?: string;
 }) {
   const still = useStillness();
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
 
   if (still) return <span className={className}>{children}</span>;
 
   return (
-    <span className="block overflow-hidden pb-[0.12em]">
+    <span ref={ref} className="block overflow-hidden pb-[0.12em]">
       <motion.span
         className={`block ${className ?? ""}`}
         initial={{ y: "115%" }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+        animate={inView ? { y: 0 } : { y: "115%" }}
         transition={{ duration: 0.9, delay, ease: EASE }}
       >
         {children}

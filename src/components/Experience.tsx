@@ -149,7 +149,7 @@ export function Experience() {
           className="absolute bottom-2 left-[0.375rem] top-3 w-px -translate-x-1/2 origin-top bg-[var(--border-strong)]"
         />
 
-        <ol className="relative">
+        <ol className="relative [&>li:last-child>*:last-child]:pb-0">
           {rows.map((row, i) => {
             const threshold = rows.length > 1 ? i / (rows.length - 1) : 0;
             const hollow = row.role.compact;
