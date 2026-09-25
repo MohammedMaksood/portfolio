@@ -43,7 +43,7 @@ export const experience: Role[] = [
     end: "Present",
     location: "Chennai, India",
     summary:
-      "I own the AI layer of an ed-tech platform. Four systems, built in this order, each one making the next possible.",
+      "I build the AI layer of an ed-tech platform. Three systems I designed and shipped end to end, in this order, plus the computer vision module inside a fourth.",
     milestones: [
       {
         step: "01",
@@ -53,7 +53,7 @@ export const experience: Role[] = [
       {
         step: "02",
         text: "Tutoring chatbot",
-        meta: "The first system built on that store. Retrieval scoped to a student's own course, so answers stay on syllabus.",
+        meta: "The first system built on that store. Retrieval scoped to a student's own course, so answers stay on syllabus, streamed token by token so the answer starts appearing immediately.",
       },
       {
         step: "03",
@@ -62,8 +62,8 @@ export const experience: Role[] = [
       },
       {
         step: "04",
-        text: "Grading and analytics",
-        meta: "Closed the loop. Material in, questions out, scripts scored, and the results fed back as student analytics.",
+        text: "Bubble-sheet OMR module",
+        meta: "Closed the loop. The computer vision piece inside a grading pipeline the team built: reading a marked bubble is deterministic, so no model call belongs in it.",
       },
     ],
     stack: [
@@ -89,11 +89,11 @@ export const experience: Role[] = [
     end: "Mar 2025",
     location: "Chennai, India",
     summary:
-      "Evaluated the emerging class of AI coding assistants and agentic developer tools against real development tasks, assessing where they genuinely accelerate work and where they do not.",
+      "Worked on the question-generation MVP: designing its system prompts, and running the vector database comparison that picked its retrieval layer. Qdrant won, and is the store every system I built afterwards reads from.",
     milestones: [],
     kicker: "Before EdgeUp",
-    stack: ["Claude Code", "Cursor", "GitHub Copilot", "Windsurf"],
-    stackLabel: "Tools evaluated",
+    stack: ["Weaviate", "Qdrant"],
+    stackLabel: "Compared for the retrieval layer",
     compact: true,
   },
 ];

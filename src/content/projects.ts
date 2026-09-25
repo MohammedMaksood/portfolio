@@ -47,7 +47,7 @@ export const projects: Project[] = [
     title: "AI Tutoring Chatbot",
     context: "EdgeUp",
     summary:
-      "A curriculum-grounded RAG tutor serving 500+ students, built on a real-time messaging layer that holds 1,000 concurrent users at sub-second latency.",
+      "A curriculum-grounded RAG tutor over course books and past papers, serving 500+ students, with streaming responses and automatic failover between model providers.",
     status: "In production",
     year: "2025",
     featured: true,
@@ -56,9 +56,9 @@ export const projects: Project[] = [
       "Students working through course material get stuck at the exact moment a human tutor is unavailable. A general-purpose chatbot is worse than nothing here: it answers fluently from the open internet rather than from the syllabus the student is actually being examined on, so it is confidently off-curriculum. The system had to answer from course material only, fast enough to feel conversational, and stay up during a live class when hundreds of students arrive at once.",
     results: [
       { value: "500+", label: "Students served" },
-      { value: "1,000", label: "Concurrent users" },
-      { value: "4 to 7s", label: "Grounded response time" },
-      { value: "Zero", label: "Downtime on provider outage" },
+      { value: "4 to 7s", label: "Response time, down from 10s" },
+      { value: "1,000", label: "Concurrent users, load-tested" },
+      { value: "2", label: "Providers, automatic failover" },
     ],
     stack: [
       "Python",
@@ -80,15 +80,15 @@ export const projects: Project[] = [
     title: "Intelligent Question Generation Engine",
     context: "EdgeUp",
     summary:
-      "A hybrid RAG engine generating thousands of exam questions across 22 courses, validated by a multi-agent pipeline to a 90%+ acceptance rate at 30%+ lower model cost.",
+      "A hybrid-retrieval engine generating thousands of MCQs across 22 courses, with a multi-agent validation pipeline that lifted expert-reviewer acceptance from 90% to near-100%.",
     status: "In production",
     year: "2025",
     confidential: true,
     problem:
       "Writing exam questions by hand does not scale to 22 courses and competitive exams including UPSC, TNPSC, SSC, Banking, and RRB. Asking a model to generate them directly does scale, but produces questions that are subtly wrong, off-syllabus, or duplicated, and a bad question in an exam bank is worse than a missing one.",
     results: [
-      { value: "90%+", label: "Question acceptance rate" },
-      { value: "30%+", label: "LLM cost reduction" },
+      { value: "90% to near-100%", label: "Expert-reviewer acceptance" },
+      { value: "30%+", label: "LLM spend cut, verified on bills" },
       { value: "22", label: "Courses covered" },
       { value: "1,000s", label: "MCQs generated" },
     ],
@@ -107,29 +107,20 @@ export const projects: Project[] = [
   {
     slug: "exam-grading",
     index: "03",
-    title: "Automated Exam Grading and Analytics",
+    title: "Bubble-Sheet OMR Module",
     context: "EdgeUp",
     summary:
-      "An OMR and LLM grading pipeline processing hundreds of exam scripts at 98%+ agreement with human graders, cutting turnaround from hours to minutes.",
+      "The OpenCV module that reads bubble-sheet answers off scanned exam scripts, feeding a grading pipeline the team built that cut turnaround from hours to minutes.",
     status: "In production",
     year: "2025",
     confidential: true,
     problem:
-      "Grading hundreds of exam scripts by hand takes hours per batch, and the delay is not just administrative: students lose the feedback loop while the material is still fresh. Any automated replacement has to be accurate enough that its output can be trusted without a second human pass.",
+      "Marking bubble sheets by hand takes hours per batch, and the delay is not administrative: students lose the feedback loop while the material is still fresh. Reading a marked bubble is a solved computer vision problem, so the part worth getting right was accuracy on real scans, where paper is skewed, marks are faint and the odd sheet is photographed rather than scanned.",
     results: [
-      { value: "98%+", label: "Agreement with human graders" },
-      { value: "Hours to minutes", label: "Grading turnaround" },
-      { value: "100s", label: "Scripts per run" },
+      { value: "Hours to minutes", label: "Grading turnaround, team pipeline" },
+      { value: "OpenCV", label: "Deterministic, no model call" },
     ],
-    stack: [
-      "Python",
-      "Django",
-      "Celery Beat",
-      "OpenCV",
-      "Gemini",
-      "Sentence Transformers",
-      "AWS S3/CloudFront",
-    ],
+    stack: ["Python", "OpenCV", "Gemini", "Celery Beat", "AWS S3/CloudFront"],
     links: [],
   },
   {

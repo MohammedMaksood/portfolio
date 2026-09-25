@@ -23,7 +23,7 @@ export const profile = {
 
   /** Hero statement. Large, editorial, set in the display serif. */
   statement:
-    "I build production retrieval and multi-agent systems: RAG pipelines, hybrid search, and LLM orchestration that serve real users at scale.",
+    "I design and ship production GenAI systems: RAG pipelines, hybrid retrieval, and multi-agent orchestration that serve real users at scale.",
 
   /** One-line meta description used for SEO and the footer. */
   tagline:
